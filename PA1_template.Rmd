@@ -1,8 +1,7 @@
 ---
 title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
+output: html_document
+keep_md: true
 ---
 
 Start with loading all the necessary libraries and setting global knitr options
@@ -11,7 +10,7 @@ library(data.table)
 library(dplyr)
 library(lattice)
 library(knitr)
-opts_chunk$set(echo=TRUE)
+opts_chunk$set(echo=TRUE, fig.path="figure/")
 ```
 
 ## Loading and preprocessing the data
@@ -37,7 +36,7 @@ head(df)
 2. If you do not understand the difference between a histogram and a barplot, research the difference between them. Make a histogram of the total number of steps taken each day
 3. Calculate and report the mean and median of the total number of steps taken per day
 
-```{r}
+```{r plot1}
 # remove NA's
 df_complete <- df[!is.na(df$steps), c("steps","date")]
 # compute totals per day
@@ -62,7 +61,7 @@ The *Mean* and *Median* of the toal number of steps taken per day:
 1. Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
-```{r}
+```{r plot2}
 # calculate totals by interval
 int_agg <- aggregate(x = df$steps,
                      by = list(interval = df$interval), FUN = mean,
@@ -100,7 +99,7 @@ For example, suppose the average number of steps taken on 2012-10-01 was **3500*
 ( 3500 + 50 ) / 2
 = **`r ( 3500 + 50 ) / 2`**
 
-```{r}
+```{r plot3}
 # prepare totals per day, this time substituting NA with 0
 df$steps <- ifelse(is.na(df$steps), 0, df$steps)
 totals_per_day <- aggregate(x = df$steps, 
@@ -142,7 +141,7 @@ As a result of imputting missing data, both median and mean have **changed** -- 
 1. Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
 2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data.
 
-```{r}
+```{r plot4}
 # create a "weekday" column
 df_complete <- df_complete %>%
     mutate(weekday = grepl("Sat|Sun", weekdays(as.Date(date), abbreviate = TRUE)))
