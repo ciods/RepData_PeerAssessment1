@@ -7,7 +7,7 @@ library(data.table)
 library(dplyr)
 library(lattice)
 library(knitr)
-opts_chunk$set(echo=TRUE)
+opts_chunk$set(echo=TRUE, fig.path="figure/")
 ```
 
 ## Loading and preprocessing the data
@@ -59,7 +59,7 @@ hist(totals_per_day$day_totals,
      main = "Total number of steps taken per day", col = "cyan")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+![](figure/plot1-1.png)<!-- -->
 
 ```r
 # calculate aggregates
@@ -88,7 +88,7 @@ plot(int_agg$interval, int_agg$int_mean, type = 'l',
      main = "Average number of steps across all days", col = "blue")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+![](figure/plot2-1.png)<!-- -->
 
 ```r
 # find the max index value
@@ -168,7 +168,7 @@ hist(totals_per_day$day_totals,
      main = "Total number of steps taken per day (with imputted data)", col = "cyan")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+![](figure/plot3-1.png)<!-- -->
 
 ```r
 # find out mean & median
@@ -205,4 +205,4 @@ xyplot(int_mean ~ interval | wkday, data = int_agg, type = 'l',
        xlab = "Interval", ylab = "Number of steps", layout = c(1,2))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+![](figure/plot4-1.png)<!-- -->
